@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="104c84bb-4603-4e5b-9e6f-a557e06a1599" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/NMKGame/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/NMKGame.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/NMKGame/META-INF/NMKGame.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/NMKGame/nmkGame/Board.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/NMKGame/nmkGame/Cell.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/NMKGame/nmkGame/CheaterPlayer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/NMKGame/nmkGame/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/NMKGame/nmkGame/HumanPlayer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/NMKGame/nmkGame/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/NMKGame/nmkGame/Move.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/NMKGame/nmkGame/NMKBoard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/NMKGame/nmkGame/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/NMKGame/nmkGame/Position.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/NMKGame/nmkGame/ProxyBoard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/NMKGame/nmkGame/RandomPlayer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/NMKGame/nmkGame/Result.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/TicTacToe/META-INF/TicTacToe.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/TicTacToe/nmkGame/Board.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/TicTacToe/nmkGame/Cell.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/TicTacToe/nmkGame/CheaterPlayer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/TicTacToe/nmkGame/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/TicTacToe/nmkGame/HumanPlayer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/TicTacToe/nmkGame/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/TicTacToe/nmkGame/Move.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/TicTacToe/nmkGame/NMKBoard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/TicTacToe/nmkGame/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/TicTacToe/nmkGame/Position.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/TicTacToe/nmkGame/ProxyBoard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/TicTacToe/nmkGame/RandomPlayer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/out/production/TicTacToe/nmkGame/Result.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/src/nmkGame/Board.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/src/nmkGame/Cell.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/src/nmkGame/CheaterPlayer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/src/nmkGame/Game.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/src/nmkGame/HumanPlayer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/src/nmkGame/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/src/nmkGame/Move.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/src/nmkGame/NMKBoard.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/src/nmkGame/Player.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/src/nmkGame/Position.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/src/nmkGame/ProxyBoard.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/src/nmkGame/RandomPlayer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NMKGame/src/nmkGame/Result.java" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1U7nhgw8ZUoJSPQoLom8Im5P1Jh" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="104c84bb-4603-4e5b-9e6f-a557e06a1599" name="Default Changelist" comment="" />
+      <created>1574716621095</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1574716621095</updated>
+      <workItem from="1574716622258" duration="2000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

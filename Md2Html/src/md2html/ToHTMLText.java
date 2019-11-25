@@ -105,28 +105,31 @@ public class ToHTMLText {
     }
 
     private static boolean checkLink(Map<Integer, Integer> markers, String markString, int position) {
-        return markString.charAt(position) == '[' && markString.charAt(markers.get(position) + 1) == '(' && markers.containsKey(markers.get(position) + 1);
+        return markString.charAt(position) == '[' &&
+                markString.charAt(markers.get(position) + 1) == '(' &&
+                    markers.containsKey(markers.get(position) + 1);
     }
 
     private static int putMarkers(Map<Integer, Integer> markers, StringBuilder stringBuilder, String markString, int position) {
-        if (md2HtmlMarks.containsKey(getMarker(markString, position))) {
-            String marker = md2HtmlMarks.get(getMarker(markString, position));
-            stringBuilder.append("<").append(marker).append(">");
-            parseString(markers, stringBuilder, markString, position + getMarker(markString, position).length(), markers.get(position));
-            stringBuilder.append("</").append(marker).append(">");
-            position = markers.get(position) + getMarker(markString, markers.get(position)).length() - 1;
+        String marker = getMarker(markString, position);
+        int closePosition = markers.get(position);
+        if (md2HtmlMarks.containsKey(marker)) {
+            String htmlMarker = md2HtmlMarks.get(marker);
+            stringBuilder.append("<").append(htmlMarker).append(">");
+            parseString(markers, stringBuilder, markString, position + marker.length(), closePosition);
+            stringBuilder.append("</").append(htmlMarker).append(">");
+            position = closePosition + marker.length() - 1;
             return position;
         } else if (!checkLink(markers, markString, position)) {
             stringBuilder.append(markString.charAt(position));
             return position;
         } else {
             stringBuilder.append("<a href='");
-            int linkOpen = markers.get(position) + 1;
-            stringBuilder.append(markString, linkOpen + 1, markers.get(linkOpen));
+            stringBuilder.append(markString, closePosition + 2, markers.get(closePosition + 1));
             stringBuilder.append("'>");
-            parseString(markers, stringBuilder, markString, position + 1, markers.get(position));
+            parseString(markers, stringBuilder, markString, position + 1, closePosition);
             stringBuilder.append("</a>");
-            return markers.get(linkOpen);
+            return markers.get(closePosition + 1);
         }
     }
 

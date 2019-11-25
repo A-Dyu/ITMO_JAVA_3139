@@ -1,4 +1,4 @@
-package nmkGame;
+package mnkGame;
 
 public interface Position {
     boolean isValid(Move move);

@@ -1,4 +1,4 @@
-package nmkGame;
+package mnkGame;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -17,9 +17,9 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             try {
-                log("Insert n, m, k");
-                int n = scanner.nextInt(), m = scanner.nextInt(), k = scanner.nextInt();
-                return play(new NMKBoard(n, m, k));
+                log("Insert m, n, k");
+                int m = scanner.nextInt(), n = scanner.nextInt(), k = scanner.nextInt();
+                return play(new MNKBoard(n, m, k));
             } catch (InputMismatchException e) {
                 log("Invalid input. Please try again.");
                 scanner.nextLine();
@@ -28,13 +28,16 @@ public class Game {
     }
 
     public int start(int n, int m, int k) {
-        return play(new NMKBoard(n, m, k));
+        if (n <= 0 || m <= 0 || k <= 0) {
+            throw new IllegalArgumentException();
+        }
+        return play(new MNKBoard(n, m, k));
     }
 
     private int play(Board board) {
         while (true) {
             for (int i = 0; i < 2; i++) {
-                final int result = move(board, 0);
+                final int result = move(board, i);
                 if (result != -1) {
                     return result;
                 }

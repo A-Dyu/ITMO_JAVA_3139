@@ -1,9 +1,8 @@
-package nmkGame;
+package mnkGame;
 
 import java.util.Arrays;
-import java.util.Map;
 
-public class NMKBoard implements Board, Position {
+public class MNKBoard implements Board, Position {
 
 
     private final Cell[][] cells;
@@ -11,7 +10,7 @@ public class NMKBoard implements Board, Position {
     private final int k;
     private int cellCounter = 0;
 
-    public NMKBoard(int n, int m, int k) throws IllegalArgumentException {
+    public MNKBoard(int n, int m, int k) throws IllegalArgumentException {
         if (n <= 0 || m <= 0 || k <= 0) {
             throw new IllegalArgumentException();
         }

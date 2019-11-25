@@ -1,4 +1,4 @@
-package nmkGame;
+package mnkGame;
 
 public class CheaterPlayer implements Player {
     @Override

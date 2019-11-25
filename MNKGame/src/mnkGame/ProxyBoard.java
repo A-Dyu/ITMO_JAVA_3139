@@ -1,4 +1,4 @@
-package nmkGame;
+package mnkGame;
 
 public class ProxyBoard implements Position {
     private Position position;

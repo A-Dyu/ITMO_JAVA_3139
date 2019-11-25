@@ -18,7 +18,7 @@ public class RandomPlayer implements Player {
         while (true) {
             int r = random.nextInt(position.getN());
             int c = random.nextInt(position.getM());
-            final Move move = new Move(r, c, cell);
+            final Move move = new Move(r, c);
             if (position.isValid(move)) {
                 return move;
             }

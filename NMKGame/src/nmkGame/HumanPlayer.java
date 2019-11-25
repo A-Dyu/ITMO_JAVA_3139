@@ -23,7 +23,7 @@ public class HumanPlayer implements Player {
             out.println(position);
             out.println(cell + "'s move");
             out.println("Enter row and column");
-            final Move move = new Move(in.nextInt() - 1, in.nextInt() - 1, cell);
+            final Move move = new Move(in.nextInt() - 1, in.nextInt() - 1);
             if (position.isValid(move)) {
                 return move;
             }

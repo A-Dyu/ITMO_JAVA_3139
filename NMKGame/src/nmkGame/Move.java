@@ -3,12 +3,10 @@ package nmkGame;
 public final class Move {
     private final int row;
     private final int column;
-    private final Cell value;
 
-    public Move(final int row, final int column, final Cell value) {
+    public Move(final int row, final int column) {
         this.row = row;
         this.column = column;
-        this.value = value;
     }
 
     public int getRow() {
@@ -21,6 +19,6 @@ public final class Move {
 
     @Override
     public String toString() {
-        return "row=" + (row + 1) + ", column=" + (column + 1) + ", value=" + value;
+        return "row=" + (row + 1) + ", column=" + (column + 1);
     }
 }

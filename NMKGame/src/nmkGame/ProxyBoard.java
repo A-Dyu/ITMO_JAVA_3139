@@ -18,9 +18,7 @@ public class ProxyBoard implements Position {
     }
 
     @Override
-    public int getK() {
-        return position.getK();
-    }
+    public int getK() { return position.getK(); }
 
     @Override
     public int getN() {

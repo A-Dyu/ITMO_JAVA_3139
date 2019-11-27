@@ -5,21 +5,22 @@ import java.util.Arrays;
 public class MNKBoard implements Board, Position {
 
 
-    private final Cell[][] cells;
-    private Cell turn;
+    private final char[][] cells;
+    private int turn = 0;
     private final int k;
     private int cellCounter = 0;
+    private final int playerCount;
 
-    public MNKBoard(int n, int m, int k) throws IllegalArgumentException {
+    public MNKBoard(final int n, final int m, final int k, final int playerCount) throws IllegalArgumentException {
         if (n <= 0 || m <= 0 || k <= 0) {
             throw new IllegalArgumentException();
         }
-        this.cells = new Cell[n][m];
-        for (Cell[] row : cells) {
-            Arrays.fill(row, Cell.E);
+        this.cells = new char[n][m];
+        for (char[] row : cells) {
+            Arrays.fill(row, Cell.getCell(Cell.getSize() - 1));
         }
-        turn = Cell.X;
         this.k = k;
+        this.playerCount = playerCount;
     }
 
     @Override
@@ -28,11 +29,11 @@ public class MNKBoard implements Board, Position {
     }
 
     @Override
-    public Cell getCell() { return turn; }
+    public char getCell() { return Cell.getCell(turn); }
 
     private int deltaCounter(int row, int column, int dx, int dy) {
         int counter = 0;
-        for (int x = row, y = column; x < cells.length && x >= 0 && y < cells[0].length && y >= 0 && cells[x][y] == turn; x += dx, y += dy) {
+        for (int x = row, y = column; x < cells.length && x >= 0 && y < cells[0].length && y >= 0 && cells[x][y] == cells[row][column]; x += dx, y += dy) {
             counter++;
         }
         return counter;
@@ -61,22 +62,22 @@ public class MNKBoard implements Board, Position {
             return Result.LOSE;
         }
 
-        cells[move.getRow()][move.getColumn()] = turn;
+        cells[move.getRow()][move.getColumn()] = Cell.getCell(turn);
         cellCounter++;
         Result result = getResult(move);
-        turn = turn == Cell.X ? Cell.O : Cell.X;
+        turn = (turn + 1) % playerCount;
         return result;
     }
 
     @Override
     public boolean isValid(final Move move) {
-        return 0 <= move.getRow() && move.getRow() < cells.length
+        return move != null && 0 <= move.getRow() && move.getRow() < cells.length
                 && 0 <= move.getColumn() && move.getColumn() < cells[0].length
-                && cells[move.getRow()][move.getColumn()] == Cell.E;
+                && cells[move.getRow()][move.getColumn()] == Cell.getCell(Cell.getSize() - 1) && move.getCell() == Cell.getCell(turn);
     }
 
     @Override
-    public Cell getCell(final int r, final int c) {
+    public char getCell(final int r, final int c) {
         return cells[r][c];
     }
 
@@ -106,7 +107,7 @@ public class MNKBoard implements Board, Position {
             sb.append("\n");
             sb.append(String.format("%" + lenN + "d ", (r + 1)));
             for (int c = 0; c < cells[0].length; c++) {
-                sb.append(String.format("%" + lenM + "s ", cells[r][c].toString()));
+                sb.append(String.format("%" + lenM + "s ", cells[r][c]));
             }
         }
         return sb.toString();

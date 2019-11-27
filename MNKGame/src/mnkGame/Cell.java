@@ -1,16 +1,13 @@
 package mnkGame;
 
-import java.util.Map;
+public class Cell {
+    private static char[] cells = {'X', 'O','-', '|', '.'};
 
-public enum Cell {
-    X, O, E;
-    private static final Map<Cell, Character> SYMBOLS = Map.of(
-            Cell.X, 'X',
-            Cell.O, 'O',
-            Cell.E, '.'
-    );
-    @Override
-    public String toString() {
-        return SYMBOLS.get(this).toString();
+    public static char getCell(int i) {
+        return cells[i];
+    }
+
+    public static int getSize() {
+        return cells.length;
     }
 }

@@ -1,5 +1,5 @@
 package mnkGame;
 
 public interface Player {
-    Move move(Position position, Cell cell);
+    Move move(Position position, char cell);
 }

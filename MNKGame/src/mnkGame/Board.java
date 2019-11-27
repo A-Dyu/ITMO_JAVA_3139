@@ -2,6 +2,6 @@ package mnkGame;
 
 interface Board {
     Position getPosition();
-    Cell getCell();
+    char getCell();
     Result makeMove(Move move);
 }

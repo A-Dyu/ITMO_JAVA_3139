@@ -13,7 +13,7 @@ public class ProxyBoard implements Position {
     }
 
     @Override
-    public Cell getCell(int r, int c) {
+    public char getCell(int r, int c) {
         return position.getCell(r, c);
     }
 

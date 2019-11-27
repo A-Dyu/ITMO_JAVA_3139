@@ -14,11 +14,11 @@ public class RandomPlayer implements Player {
     }
 
     @Override
-    public Move move(final Position position, final Cell cell) {
+    public Move move(final Position position, final char cell) {
         while (true) {
             int r = random.nextInt(position.getN());
             int c = random.nextInt(position.getM());
-            final Move move = new Move(r, c);
+            final Move move = new Move(r, c, cell);
             if (position.isValid(move)) {
                 return move;
             }

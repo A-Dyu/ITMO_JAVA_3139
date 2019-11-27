@@ -21,7 +21,7 @@ public class HumanPlayer implements Player {
     }
 
     @Override
-    public Move move(final Position position, final Cell cell) {
+    public Move move(final Position position, final char cell) {
         while (true) {
             out.println("Position");
             out.println(position);
@@ -30,7 +30,7 @@ public class HumanPlayer implements Player {
             Move move;
             while (true) {
                 try {
-                    move = new Move(in.nextInt() - 1, in.nextInt() - 1);
+                    move = new Move(in.nextInt() - 1, in.nextInt() - 1, cell);
                     break;
                 } catch (InputMismatchException e) {
                     out.println("Invalid arguments, please try again");

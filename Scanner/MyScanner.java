@@ -1,72 +1,130 @@
+import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.io.*;
-import java.math.BigInteger;
-import java.util.Scanner;
+public class MyScanner {
 
-public class Main {
-    static BufferedWriter writer;
-    static Scanner sc;
-    static int mod = 999999937;
-    static int[][] matrix = new int[5][5];
-    static {
-        matrix[0] = new int[]{1, 1, 1, 1, 1};
-        matrix[1] = new int[]{1, 1, 1, 1, 1};
-        matrix[2] = new int[]{1, 1, 1, 1, 1};
-        matrix[3] = new int[]{1, 1, 0, 1, 0};
-        matrix[4] = new int[]{1, 1, 0, 1, 0};
-    }
+	private Reader reader;
+	private int lt = -1;
 
-    static int[][] mul(int[][] a, int[][] b) {
-        int[][] c = new int[5][5];
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 5; j++) {
-                c[i][j] = 0;
-                for (int r = 0; r < 5; r++) {
-                    c[i][j] += a[i][r] * b[r][j];
-                    c[i][j] %= mod;
-                }
-            }
-        return c;
-    }
-    static int[][] pow(BigInteger n) {
-        if (n.equals(BigInteger.valueOf(1)))
-            return matrix;
-        int[][] a = pow(n.divide(BigInteger.valueOf(2)));
-        a = mul(a, a);
-        if (n.mod(BigInteger.valueOf(2)).equals(BigInteger.valueOf(1))) {
-            a = mul(a, matrix);
-        }
-        return a;
-    }
+	public MyScanner (String in) throws FileNotFoundException, IOException {
+		reader = new InputStreamReader(new FileInputStream(in), "UTF-8");
+	}
 
-    static int solve() throws IOException {
-        
-        BigInteger n = new BigInteger(sc.next());
-        if (n.equals(BigInteger.valueOf(0))) {
-            return 1;
-        }
-        n = n.add(BigInteger.valueOf(-1));
-        if (n.equals(BigInteger.valueOf(0))) {
-            writer.write(5);
-        } else {
-            int[][] a = pow(n);
-            int ans = 0;
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 5; j++) {
-                    ans = (ans + a[i][j]) % mod;
-                }
-            }
-            writer.write(ans);
-        }
-        writer.newLine();
-        return 0;
-    }
-    public static void main(String[] args) throws IOException {
-        writer =  new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream("sequences.out")));
-        sc = new Scanner(new InputStreamReader(new FileInputStream("sequences.in")));
-        int t = 0;
-        while (t == 0)
-            t = solve();
-        writer.close();
-    }
+	public MyScanner () throws IOException {
+		reader = new InputStreamReader(System.in, "UTF-8");
+	}
+	private interface Checker {
+		boolean check(int c) throws IOException;
+	}
+
+	private static boolean wordChecker(int c) {
+		return Character.isLetter((char) c) || Character.getType((char) c) == Character.DASH_PUNCTUATION || c == '\'';
+	}
+
+	private static boolean newLineChecker(int c) {
+		return c == '\n' || c == '\r';
+	}
+
+	private static boolean eOFChecker(int c) {
+		return c == -1;
+	}
+
+	private static boolean stringChecker(int c) {
+		return !Character.isWhitespace((char) c) && !newLineChecker(c) && !eOFChecker(c);
+	}
+	private static boolean intChecker(int c) {
+		return (char) c == '-' || Character.isDigit((char) c);
+	}
+	public void close() throws IOException {
+		reader.close();
+	}
+
+	private boolean hasNext(Checker checker) throws NoSuchElementException, IOException {
+		if (checker.check(lt)) {
+			return true;
+		} else {
+			lt = -1;
+		}
+		int c = reader.read();
+		while (!checker.check(c) && c != -1) {
+			c = reader.read();
+		}
+		lt = c;
+		return !eOFChecker(c);
+	}
+
+	private String next(Checker checker) throws NoSuchElementException, IOException {
+		if (!hasNext(checker)) {
+			throw new NoSuchElementException("No such element in input");
+		}
+		StringBuilder str = new StringBuilder();
+		str.append((char) lt);
+		int c = reader.read();
+		while (checker.check(c)) {
+			str.append((char) c);
+			c = reader.read();
+		}
+		lt = c;
+		return str.toString();
+	}
+
+	public boolean hasNextInt() throws NoSuchElementException, IOException {
+		return hasNext(MyScanner::intChecker);
+	}
+
+	public int nextInt() throws NoSuchElementException, IOException {
+		return Integer.parseInt(next(MyScanner::intChecker));
+	}
+
+	public boolean hasNextWord() throws NoSuchElementException, IOException {
+		return hasNext(MyScanner::wordChecker);
+	}
+
+	public String nextWord() throws NoSuchElementException, IOException {
+		return next(MyScanner::wordChecker);
+	}
+
+	public boolean hasNextString() throws NoSuchElementException, IOException {
+		return hasNext(MyScanner::stringChecker);
+	}
+
+	public String nextString() throws NoSuchElementException, IOException {
+		return next(MyScanner::stringChecker);
+	}
+
+	public boolean hasBeforeSeparation(Checker notSkip) throws IOException {
+		int c;
+		if (lt != -1) {
+			c = lt;
+			lt = -1;
+		} else {
+			c = reader.read();
+		}
+		while (!notSkip.check(c) && !newLineChecker(c) && !eOFChecker(c)) {
+			c = reader.read();
+		}
+		lt = c;
+		return notSkip.check( c);
+	}
+
+	public void skipLine() throws IOException {
+		hasNext(MyScanner::newLineChecker);
+		lt = -1;
+	}
+
+	public boolean hasIntBeforeSeparation() throws IOException {
+		return hasBeforeSeparation(MyScanner::intChecker);
+	}
+
+	public boolean hasWordBeforeSeparation() throws IOException {
+		return hasBeforeSeparation(MyScanner::wordChecker);
+	}
+
+	public boolean hasStringBeforeSeparation() throws IOException {
+		return hasBeforeSeparation(MyScanner::stringChecker);
+	}
+
+	public boolean isEOF() throws IOException {
+		return !hasStringBeforeSeparation() && eOFChecker(lt);
+	}
 }

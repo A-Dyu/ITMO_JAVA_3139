@@ -9,6 +9,5 @@ public class Main {
                 new Multiply(new Const(2), new Variable("x"))),
                     new Const(1));
         System.out.println(expression.evaluate(scanner.nextInt()));
-        //System.out.println(new Add(new Const(2), new Variable("x")).equals(new Subtract(new Const(2), new Variable("x"))));
     }
 }

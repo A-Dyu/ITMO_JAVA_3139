@@ -35,31 +35,28 @@ abstract class BinaryOperator implements Expression {
         return (isInBrackets ? "(" : "") + a.toMiniString() + (isInBrackets ? ")" : "");
     }
 
-    private boolean checkBrackets(Expression a) {
+    private boolean checkPriorityBrackets(Expression a) {
         return ((a instanceof BinaryOperator) && ((BinaryOperator) a).getPriority() < this.getPriority());
     }
 
     private boolean checkExpressionOrderAddition(Expression a) {
         return a instanceof Subtract || a instanceof Divide;
     }
-    
-    private boolean checkBracketsOrderAddition(Expression a) {
+
+    private boolean checkOrderAdditionBrackets(Expression a) {
         if (checkExpressionOrderAddition(a) && this.getPriority() == ((BinaryOperator) a).getPriority()) {
             return true;
         }
-        if (checkExpressionOrderAddition(this) &&
-                (a instanceof BinaryOperator && ((BinaryOperator) a).getPriority() <= this.getPriority())) {
-            return true;
-        }
-        return false;
+        return checkExpressionOrderAddition(this) &&
+                (a instanceof BinaryOperator && ((BinaryOperator) a).getPriority() <= this.getPriority());
     }
 
     @Override
     public String toMiniString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(getExpression(a, checkBrackets(a)));
+        stringBuilder.append(getExpression(a, checkPriorityBrackets(a)));
         stringBuilder.append(getOperator());
-        stringBuilder.append(getExpression(b, checkBrackets(b) || checkBracketsOrderAddition(b)));
+        stringBuilder.append(getExpression(b, checkPriorityBrackets(b) || checkOrderAdditionBrackets(b)));
         return stringBuilder.toString();
     }
 

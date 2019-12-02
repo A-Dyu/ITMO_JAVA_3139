@@ -39,15 +39,11 @@ abstract class BinaryOperator implements Expression {
         return ((a instanceof BinaryOperator) && ((BinaryOperator) a).getPriority() < this.getPriority());
     }
 
-    private boolean checkExpressionOrderAddition(Expression a) {
-        return a instanceof Subtract || a instanceof Divide;
-    }
-
     private boolean checkOrderAdditionBrackets(Expression a) {
-        if (checkExpressionOrderAddition(a) && this.getPriority() == ((BinaryOperator) a).getPriority()) {
+        if (a instanceof Divide && ((BinaryOperator) a).getPriority() == this.getPriority()) {
             return true;
         }
-        return checkExpressionOrderAddition(this) &&
+        return (this instanceof Divide || this instanceof Subtract) &&
                 (a instanceof BinaryOperator && ((BinaryOperator) a).getPriority() <= this.getPriority());
     }
 

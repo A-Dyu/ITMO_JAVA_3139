@@ -2,7 +2,7 @@ package expression;
 
 import java.util.Objects;
 
-public class Variable implements Expression {
+public class Variable extends AbstractExpression {
     private String var;
 
     public Variable(String var) {
@@ -34,5 +34,19 @@ public class Variable implements Expression {
     @Override
     public int hashCode() {
         return Objects.hash(var);
+    }
+
+    @Override
+    public int evaluate(int x, int y, int z) {
+        if (var.equals("x")) {
+            return x;
+        }
+        if (var.equals("y")) {
+            return y;
+        }
+        if (var.equals("z")) {
+            return z;
+        }
+        throw new IllegalArgumentException("Unexpected variable " + var);
     }
 }

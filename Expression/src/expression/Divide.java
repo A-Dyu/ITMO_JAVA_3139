@@ -1,7 +1,7 @@
 package expression;
 
-public class Divide extends BinaryOperator {
-    public Divide(Expression a, Expression b) {
+public class Divide extends AbstractBinaryOperator {
+    public Divide(AbstractExpression a, AbstractExpression b) {
         super(a, b);
     }
 
@@ -19,4 +19,10 @@ public class Divide extends BinaryOperator {
     protected int operate(int a, int b) {
         return a / b;
     }
+
+    @Override
+    protected boolean isOrdered() {
+        return true;
+    }
+
 }

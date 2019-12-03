@@ -1,7 +1,7 @@
 package expression;
 
-public class Subtract extends BinaryOperator{
-    public Subtract(Expression a, Expression b) {
+public class Subtract extends AbstractBinaryOperator {
+    public Subtract(AbstractExpression a, AbstractExpression b) {
         super(a, b);
     }
 
@@ -16,7 +16,13 @@ public class Subtract extends BinaryOperator{
     }
 
     @Override
+    protected boolean isOrdered() {
+        return true;
+    }
+
+    @Override
     public int getPriority() {
         return 1;
     }
+
 }

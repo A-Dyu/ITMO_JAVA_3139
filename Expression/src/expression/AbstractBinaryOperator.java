@@ -2,11 +2,11 @@ package expression;
 
 import java.util.Objects;
 
-abstract class AbstractBinaryOperator extends AbstractExpression {
-    private AbstractExpression a;
-    private AbstractExpression b;
+abstract class AbstractBinaryOperator implements CommonExpression {
+    private CommonExpression a;
+    private CommonExpression b;
 
-    public AbstractBinaryOperator(AbstractExpression a, AbstractExpression b) {
+    public AbstractBinaryOperator(CommonExpression a, CommonExpression b) {
         this.a = a;
         this.b = b;
     }

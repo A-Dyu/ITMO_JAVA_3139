@@ -1,7 +1,7 @@
 package expression;
 
 public class Subtract extends AbstractBinaryOperator {
-    public Subtract(AbstractExpression a, AbstractExpression b) {
+    public Subtract(CommonExpression a, CommonExpression b) {
         super(a, b);
     }
 

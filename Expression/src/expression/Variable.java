@@ -2,7 +2,7 @@ package expression;
 
 import java.util.Objects;
 
-public class Variable extends AbstractExpression {
+public class Variable implements CommonExpression {
     private String var;
 
     public Variable(String var) {

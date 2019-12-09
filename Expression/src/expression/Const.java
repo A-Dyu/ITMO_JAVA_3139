@@ -2,7 +2,7 @@ package expression;
 
 import java.util.Objects;
 
-public class Const extends AbstractExpression{
+public class Const implements CommonExpression {
     private int val;
 
     public Const(int val) {

@@ -2,13 +2,12 @@ package expression.parser;
 
 import expression.*;
 
-import java.util.InputMismatchException;
 import java.util.Map;
-import java.util.UnknownFormatConversionException;
 
 public class ExpressionParser extends BaseParser implements Parser {
     private String lastOperator = ")";
     private final int topLevel = 2;
+    private final int primalLevel = 0;
     private static Map<String, Integer> priorities = Map.of(
             "+", 2,
             "-", 2,
@@ -16,7 +15,7 @@ public class ExpressionParser extends BaseParser implements Parser {
             "/", 1,
             ")", 10
     );
-    private static Map<Character, String> charToString = Map.of(
+    private static Map<Character, String> firstCharToOperator = Map.of(
             '+', "+",
             '-', "-",
             '*', "*",
@@ -32,34 +31,8 @@ public class ExpressionParser extends BaseParser implements Parser {
     }
 
     private CommonExpression parseLevel(int level) {
-        if (level == 0) {
-            if (test('-')) {
-                if (between('0', '9')) {
-                    StringBuilder stringBuilder = new StringBuilder("-");
-                    while (between('0', '9')) {
-                        stringBuilder.append(ch);
-                        nextChar();
-                    }
-                    testOperator();
-                    return new Const(Integer.parseInt(stringBuilder.toString()));
-                }
-                return NegativeExpression.getNegativeExpression(parseLevel(0));
-            }
-            if (test('(')) {
-                return parseLevel(topLevel);
-            } else {
-                StringBuilder stringBuilder = new StringBuilder();
-                while (!testOperator()) {
-                    stringBuilder.append(ch);
-                    nextChar();
-                }
-                try {
-                    int x = Integer.parseInt(stringBuilder.toString());
-                    return new Const(x);
-                } catch (NumberFormatException e) {
-                    return new Variable(stringBuilder.toString());
-                }
-            }
+        if (level == primalLevel) {
+            return getPrimalExpression();
         }
         CommonExpression expression = parseLevel(level - 1);
         while (priorities.get(lastOperator) == level) {
@@ -71,8 +44,45 @@ public class ExpressionParser extends BaseParser implements Parser {
         return expression;
     }
 
+    private CommonExpression getPrimalExpression() {
+        if (test('-')) {
+            if (between('0', '9')) {
+                return getConstExpression(true);
+            } else {
+                return NegativeExpression.getNegativeExpression(parseLevel(0));
+            }
+        }
+        if (test('(')) {
+            return parseLevel(topLevel);
+        }
+        if (between('0', '9')) {
+            return getConstExpression(false);
+        }
+        return getVariableExpression();
+    }
+
+
+    private CommonExpression getVariableExpression() {
+        StringBuilder stringBuilder = new StringBuilder();
+        while (!testOperator()) {
+            stringBuilder.append(ch);
+            nextChar();
+        }
+        return new Variable(stringBuilder.toString());
+    }
+
+    private CommonExpression getConstExpression(boolean isNegative) {
+        StringBuilder stringBuilder = new StringBuilder(isNegative ? "-" : "");
+        while (between('0', '9')) {
+            stringBuilder.append(ch);
+            nextChar();
+        }
+        testOperator();
+        return new Const(Integer.parseInt(stringBuilder.toString()));
+    }
+
     private boolean testOperator() {
-        if (!charToString.containsKey(ch)) {
+        if (!firstCharToOperator.containsKey(ch)) {
             return false;
         }
         getOperator();
@@ -80,7 +90,7 @@ public class ExpressionParser extends BaseParser implements Parser {
     }
 
     private void getOperator() {
-        String operator = charToString.get(ch);
+        String operator = firstCharToOperator.get(ch);
         expect(operator);
         lastOperator = operator;
     }

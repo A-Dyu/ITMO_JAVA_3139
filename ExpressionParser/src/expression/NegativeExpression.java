@@ -19,12 +19,13 @@ public class NegativeExpression implements CommonExpression {
 
     @Override
     public String toString() {
-        return "-" + expression.toString();
+        return "-(" + expression.toString() + ")";
     }
 
     @Override
     public String toMiniString() {
-        return "-" + expression.toMiniString();
+        boolean hasBrackets = expression instanceof AbstractBinaryOperator;
+        return "-" + (hasBrackets ? "(" : "") + expression.toMiniString() + (hasBrackets ? ")" : "");
     }
 
     @Override

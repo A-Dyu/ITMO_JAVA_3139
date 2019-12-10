@@ -6,16 +6,16 @@ import java.util.Map;
 
 public class ExpressionParser extends BaseParser implements Parser {
     private String lastOperator = ")";
-    private final int topLevel = 2;
-    private final int primalLevel = 0;
-    private static Map<String, Integer> priorities = Map.of(
+    private static final int topLevel = 2;
+    private static final int primalLevel = 0;
+    private static final Map<String, Integer> priorities = Map.of(
             "+", 2,
             "-", 2,
             "*", 1,
             "/", 1,
-            ")", 10
+            ")", topLevel + 1
     );
-    private static Map<Character, String> firstCharToOperator = Map.of(
+    private static final Map<Character, String> firstCharToOperator = Map.of(
             '+', "+",
             '-', "-",
             '*', "*",
@@ -25,14 +25,14 @@ public class ExpressionParser extends BaseParser implements Parser {
 
     @Override
     public TripleExpression parse(String expression) {
-        setSource(new StringSource(format(expression) + ')'));
+        setSource(new StringSource(format(expression)));
         nextChar();
         return parseLevel(topLevel);
     }
 
     private CommonExpression parseLevel(int level) {
         if (level == primalLevel) {
-            return getPrimalExpression();
+            return getPrimeExpression();
         }
         CommonExpression expression = parseLevel(level - 1);
         while (priorities.get(lastOperator) == level) {
@@ -44,12 +44,12 @@ public class ExpressionParser extends BaseParser implements Parser {
         return expression;
     }
 
-    private CommonExpression getPrimalExpression() {
+    private CommonExpression getPrimeExpression() {
         if (test('-')) {
             if (between('0', '9')) {
                 return getConstExpression(true);
             } else {
-                return NegativeExpression.getNegativeExpression(parseLevel(0));
+                return Negative.getNegativeExpression(parseLevel(0));
             }
         }
         if (test('(')) {
@@ -118,6 +118,6 @@ public class ExpressionParser extends BaseParser implements Parser {
                 stringBuilder.append(string.charAt(i));
             }
         }
-        return stringBuilder.toString();
+        return stringBuilder.toString() + ')';
     }
 }

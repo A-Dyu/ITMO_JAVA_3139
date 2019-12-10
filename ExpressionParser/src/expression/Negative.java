@@ -1,19 +1,19 @@
 package expression;
 
-public class NegativeExpression implements CommonExpression {
+public class Negative implements CommonExpression {
     private CommonExpression expression;
 
     public static CommonExpression getNegativeExpression(CommonExpression expression) {
         if (expression instanceof Const) {
             return new Const(-expression.evaluate(0));
         }
-        if (expression instanceof NegativeExpression) {
-            return ((NegativeExpression) expression).expression;
+        if (expression instanceof Negative) {
+            return ((Negative) expression).expression;
         }
-        return new NegativeExpression(expression);
+        return new Negative(expression);
     }
 
-    private NegativeExpression(CommonExpression expression) {
+    private Negative(CommonExpression expression) {
         this.expression = expression;
     }
 

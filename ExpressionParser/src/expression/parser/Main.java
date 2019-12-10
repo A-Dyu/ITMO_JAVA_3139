@@ -9,6 +9,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ExpressionParser expressionParser = new ExpressionParser();
         TripleExpression expression = expressionParser.parse(scanner.nextLine());
-        System.out.println(expression.evaluate(0, 0, 0));
+        System.out.println(expression);
     }
 }

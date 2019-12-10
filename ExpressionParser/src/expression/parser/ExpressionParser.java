@@ -6,13 +6,15 @@ import java.util.Map;
 
 public class ExpressionParser extends BaseParser implements Parser {
     private String lastOperator = ")";
-    private static final int topLevel = 2;
-    private static final int primalLevel = 0;
+    private static final int topLevel = 3;
+    private static final int primeLevel = 0;
     private static final Map<String, Integer> priorities = Map.of(
             "+", 2,
             "-", 2,
             "*", 1,
             "/", 1,
+            "<<", 3,
+            ">>", 3,
             ")", topLevel + 1
     );
     private static final Map<Character, String> firstCharToOperator = Map.of(
@@ -20,7 +22,9 @@ public class ExpressionParser extends BaseParser implements Parser {
             '-', "-",
             '*', "*",
             '/', "/",
-            ')', ")"
+            ')', ")",
+            '<', "<<",
+            '>', ">>"
     );
 
     @Override
@@ -31,7 +35,7 @@ public class ExpressionParser extends BaseParser implements Parser {
     }
 
     private CommonExpression parseLevel(int level) {
-        if (level == primalLevel) {
+        if (level == primeLevel) {
             return getPrimeExpression();
         }
         CommonExpression expression = parseLevel(level - 1);
@@ -51,14 +55,13 @@ public class ExpressionParser extends BaseParser implements Parser {
             } else {
                 return Negative.getNegativeExpression(parseLevel(0));
             }
-        }
-        if (test('(')) {
+        } else if (test('(')) {
             return parseLevel(topLevel);
-        }
-        if (between('0', '9')) {
+        } else if (between('0', '9')) {
             return getConstExpression(false);
+        } else {
+            return getVariableExpression();
         }
-        return getVariableExpression();
     }
 
 
@@ -78,7 +81,11 @@ public class ExpressionParser extends BaseParser implements Parser {
             nextChar();
         }
         testOperator();
-        return new Const(Integer.parseInt(stringBuilder.toString()));
+        try {
+            return new Const(Integer.parseInt(stringBuilder.toString()));
+        } catch (NumberFormatException e) {
+            throw error("Illegal variable :" + stringBuilder.toString());
+        }
     }
 
     private boolean testOperator() {
@@ -107,6 +114,12 @@ public class ExpressionParser extends BaseParser implements Parser {
         }
         if (operator.equals("/")) {
             return new Divide(a, b);
+        }
+        if (operator.equals("<<")) {
+            return new LeftShift(a, b);
+        }
+        if (operator.equals(">>")) {
+            return new RightShift(a, b);
         }
         throw error("Unsupported operator: " + operator);
     }

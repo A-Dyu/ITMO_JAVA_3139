@@ -11,7 +11,6 @@ abstract class AbstractBinaryOperator implements CommonExpression {
         this.b = b;
     }
 
-
     protected abstract String getOperator();
     protected abstract int getPriority();
     protected abstract int operate(int a, int b);
@@ -27,7 +26,7 @@ abstract class AbstractBinaryOperator implements CommonExpression {
 
     @Override
     public String toString() {
-        return "(" + a + getOperator()+ b + ')';
+        return "(" + a + getOperator() + b + ')';
     }
 
     private String getExpression(Expression a, boolean isInBrackets) {
@@ -41,10 +40,7 @@ abstract class AbstractBinaryOperator implements CommonExpression {
     private boolean checkOrderAdditionBrackets(Expression a) {
         if (a instanceof AbstractBinaryOperator) {
             AbstractBinaryOperator binA = (AbstractBinaryOperator) a;
-            if (binA.isOrdered() && binA.getPriority() <= this.getPriority()) {
-                return true;
-            }
-            return (this.isOrdered()) && (binA.getPriority() <= this.getPriority());
+            return (binA.isOrdered() || this.isOrdered()) && binA.getPriority() <= this.getPriority();
         }
         return false;
     }
@@ -67,6 +63,6 @@ abstract class AbstractBinaryOperator implements CommonExpression {
 
     @Override
     public int hashCode() {
-        return 42424241 * a.hashCode() + 31 * 31 * (Objects.hash(getOperator())) + 31 * b.hashCode();
+        return Objects.hash(a, getClass(), b);
     }
 }

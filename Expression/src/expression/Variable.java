@@ -38,15 +38,15 @@ public class Variable implements CommonExpression {
 
     @Override
     public int evaluate(int x, int y, int z) {
-        if (var.equals("x")) {
-            return x;
+        switch (var) {
+            case "x":
+                return x;
+            case "y":
+                return y;
+            case "z":
+                return z;
+            default:
+                throw new IllegalArgumentException("Unexpected variable " + var);
         }
-        if (var.equals("y")) {
-            return y;
-        }
-        if (var.equals("z")) {
-            return z;
-        }
-        throw new IllegalArgumentException("Unexpected variable " + var);
     }
 }

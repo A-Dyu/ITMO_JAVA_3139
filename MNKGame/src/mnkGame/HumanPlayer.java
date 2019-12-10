@@ -20,6 +20,16 @@ public class HumanPlayer implements Player {
         this(System.out, new Scanner(System.in));
     }
 
+
+    private int nextInt() {
+        while (true) {
+            if (in.hasNextInt()) {
+                return in.nextInt();
+            } else {
+                out.println("Invalid input, try again!");
+            }
+        }
+    }
     @Override
     public Move move(final Position position, final char cell) {
         while (true) {
@@ -27,16 +37,7 @@ public class HumanPlayer implements Player {
             out.println(position);
             out.println(cell + "'s move");
             out.println("Enter row and column");
-            Move move;
-            while (true) {
-                try {
-                    move = new Move(in.nextInt() - 1, in.nextInt() - 1, cell);
-                    break;
-                } catch (InputMismatchException e) {
-                    out.println("Invalid arguments, please try again");
-                    in.nextLine();
-                }
-            }
+            Move move = new Move(nextInt(), nextInt(), cell);
             if (position.isValid(move)) {
                 return move;
             }

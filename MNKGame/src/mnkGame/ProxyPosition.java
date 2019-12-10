@@ -3,8 +3,8 @@ package mnkGame;
 public class ProxyPosition implements Position {
     private Position position;
 
-    public ProxyPosition(Position board) {
-        this.position = board;
+    public ProxyPosition(Position position) {
+        this.position = position;
     }
 
     @Override

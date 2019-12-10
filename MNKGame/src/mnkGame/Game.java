@@ -23,7 +23,7 @@ public class Game {
         while (true) {
             for (int i = 0; i < 2; i++) {
                 final int result = move(board, i);
-                if (result != 0) {
+                if (result != players.size() + 1) {
                     return result;
                 }
             }
@@ -35,17 +35,21 @@ public class Game {
         final Result result = board.makeMove(move);
         log("Player " + (id + 1) + " move: " + move);
         log("Position:\n" + board);
-        if (result == Result.WIN) {
-            log("Player " + Cell.getCell(id) + " won");
-            return id + 1;
-        } else if (result == Result.LOSE) {
-            log("Player " + Cell.getCell(id) + " lost!");
-            return -(id + 1);
-        } else if (result == Result.DRAW) {
-            log("Draw");
-            return players.size() + 1;
-        } else {
-            return 0;
+        switch (result) {
+            case WIN:
+                log("Player " + Cell.getCell(id) + " won");
+                return id + 1;
+            case LOSE:
+                log("Player " + Cell.getCell(id) + " lost!");
+                return -(id + 1);
+            case CHEAT:
+                log("Player " + Cell.getCell(id) + " is cheating!");
+                return -(id + 1);
+            case DRAW:
+                log("Draw");
+                return 0;
+            default:
+                return players.size() + 1;
         }
     }
 

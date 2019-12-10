@@ -1,8 +1,6 @@
 package mnkGame;
 
 import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class MNKBoard implements Board, Position {
 
@@ -28,22 +26,25 @@ public class MNKBoard implements Board, Position {
     @Override
     public char getCell() { return Cell.getCell(turn); }
 
-    private int deltaCounter(int row, int column, int dx, int dy) {
+    private int deltaCounter(Move move, int dx, int dy) {
         int counter = 0;
-        for (int x = row, y = column; x < cells.length && x >= 0 && y < cells[0].length && y >= 0 && cells[x][y] == cells[row][column]; x += dx, y += dy) {
+        for (int x = move.getRow(), y = move.getColumn();
+             x < cells.length && x >= 0 && y < cells[0].length &&
+                     y >= 0 && cells[x][y] == cells[move.getRow()][move.getColumn()];
+                        x += dx, y += dy) {
             counter++;
         }
         return counter;
     }
 
-    private boolean deltaChecker(int row, int column, int dx, int dy) {
-        return (deltaCounter(row, column, dx, dy) + deltaCounter(row, column, -dx, -dy) - 1) >= k;
+    private boolean deltaChecker(Move move, int dx, int dy) {
+        return (deltaCounter(move, dx, dy) + deltaCounter(move, -dx, -dy) - 1) >= k;
     }
 
+    static int[] dx = {0, 1, 1, 1}, dy = {1, 0, 1, -1};
     private Result getResult(Move move) {
-        int[] dx = {0, 1, 1, 1}, dy = {1, 0, 1, -1};
         for (int i = 0; i < 4; i++) {
-            if (deltaChecker(move.getRow(), move.getColumn(), dx[i], dy[i])) {
+            if (deltaChecker(move, dx[i], dy[i])) {
                 return Result.WIN;
             }
         }
@@ -67,7 +68,8 @@ public class MNKBoard implements Board, Position {
     public boolean isValid(final Move move) {
         return move != null && 0 <= move.getRow() && move.getRow() < cells.length
                 && 0 <= move.getColumn() && move.getColumn() < cells[0].length
-                && cells[move.getRow()][move.getColumn()] == Cell.getCell(Cell.getSize() - 1) && move.getCell() == Cell.getCell(turn);
+                    && cells[move.getRow()][move.getColumn()] == Cell.getCell(Cell.getSize() - 1) &&
+                        move.getCell() == Cell.getCell(turn);
     }
 
     @Override

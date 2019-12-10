@@ -63,6 +63,6 @@ abstract class AbstractBinaryOperator implements CommonExpression {
 
     @Override
     public int hashCode() {
-        return Objects.hash(a, getClass(), b);
+        return Objects.hash(a, getClass(), b) * 424241;
     }
 }

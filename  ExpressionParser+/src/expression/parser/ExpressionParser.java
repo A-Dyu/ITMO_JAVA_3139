@@ -62,7 +62,7 @@ public class ExpressionParser extends BaseParser implements Parser {
             if (between('0', '9')) {
                 return getConstExpression(true);
             } else {
-                return Negative.getNegativeExpression(parseLevel(0));
+                return new UnaryMinus(parseLevel(0));
             }
         } else if (testOperator()) {
             throw error("Unexpected operator");

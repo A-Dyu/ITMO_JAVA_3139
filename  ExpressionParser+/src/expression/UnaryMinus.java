@@ -1,19 +1,9 @@
 package expression;
 
-public class Negative implements CommonExpression {
+public class UnaryMinus implements CommonExpression {
     private CommonExpression expression;
 
-    public static CommonExpression getNegativeExpression(CommonExpression expression) {
-        if (expression instanceof Const) {
-            return new Const(operate(expression.evaluate(0)));
-        }
-        if (expression instanceof Negative) {
-            return ((Negative) expression).expression;
-        }
-        return new Negative(expression);
-    }
-
-    private Negative(CommonExpression expression) {
+    public UnaryMinus(CommonExpression expression) {
         this.expression = expression;
     }
 

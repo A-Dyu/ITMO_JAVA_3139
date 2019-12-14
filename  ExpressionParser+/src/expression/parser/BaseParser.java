@@ -10,7 +10,10 @@ public class BaseParser {
 
     protected void nextChar() {
         ch = source.hasNext() ? source.next() : '\0';
-        //System.out.println(ch);
+    }
+
+    protected boolean hasNextChar() {
+        return source.hasNext();
     }
 
     protected boolean test(char expected) {
@@ -23,7 +26,7 @@ public class BaseParser {
 
     protected void expect(final char c) {
         if (ch != c) {
-            throw error("Expected '" + c + "', found '" + ch + "'");
+            throw error("expected '" + c + "', found '" + ch + "'");
         }
         nextChar();
     }
@@ -38,7 +41,7 @@ public class BaseParser {
         return from <= ch && ch <= to;
     }
 
-    protected RuntimeException error(final String message) {
+    protected ParserException error(final String message) {
         return source.error(message);
     }
 }

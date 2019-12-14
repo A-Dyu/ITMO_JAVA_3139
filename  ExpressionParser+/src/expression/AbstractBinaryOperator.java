@@ -17,13 +17,21 @@ abstract class AbstractBinaryOperator implements CommonExpression {
     protected abstract int operate(int a, int b);
     protected abstract boolean isOrdered();
 
-    @Override
-    public int evaluate(int x) {
-        return operate(a.evaluate(x), b.evaluate(x));
+    private int abstractOperate(int x, int y) {
+        try {
+            return operate(x, y);
+        } catch (ArithmeticException e) {
+            throw new ExpressionException(e);
+        }
     }
 
     @Override
-    public int evaluate(int x, int y, int z) { return operate(a.evaluate(x, y, z), b.evaluate(x, y, z));}
+    public int evaluate(int x) {
+        return abstractOperate(a.evaluate(x), b.evaluate(x));
+    }
+
+    @Override
+    public int evaluate(int x, int y, int z) { return abstractOperate(a.evaluate(x, y, z), b.evaluate(x, y, z));}
 
     @Override
     public String toString() {

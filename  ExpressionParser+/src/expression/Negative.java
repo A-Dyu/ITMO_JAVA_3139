@@ -5,7 +5,7 @@ public class Negative implements CommonExpression {
 
     public static CommonExpression getNegativeExpression(CommonExpression expression) {
         if (expression instanceof Const) {
-            return new Const(-expression.evaluate(0));
+            return new Const(operate(expression.evaluate(0)));
         }
         if (expression instanceof Negative) {
             return ((Negative) expression).expression;
@@ -28,13 +28,20 @@ public class Negative implements CommonExpression {
         return "-" + (hasBrackets ? "(" : "") + expression.toMiniString() + (hasBrackets ? ")" : "");
     }
 
+    private static int operate(int x) {
+        if (x == Integer.MIN_VALUE) {
+            throw new ArithmeticException("integer overflow");
+        }
+        return -x;
+    }
+
     @Override
     public int evaluate(int x) {
-        return -expression.evaluate(x);
+        return operate(expression.evaluate(x));
     }
 
     @Override
     public int evaluate(int x, int y, int z) {
-        return -expression.evaluate(x, y, z);
+        return operate(expression.evaluate(x, y, z));
     }
 }

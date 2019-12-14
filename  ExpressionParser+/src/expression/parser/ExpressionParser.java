@@ -5,7 +5,7 @@ import expression.*;
 import java.util.Map;
 
 public class ExpressionParser extends BaseParser implements Parser {
-    private String lastOperator = ")";
+    private String lastOperator;
     private static final int topLevel = 3;
     private static final int primeLevel = 0;
     private static final Map<String, Integer> priorities = Map.of(
@@ -31,7 +31,11 @@ public class ExpressionParser extends BaseParser implements Parser {
     public TripleExpression parse(String expression) {
         setSource(new StringSource(format(expression)));
         nextChar();
-        return parseLevel(topLevel);
+        final TripleExpression tripleExpression = parseLevel(topLevel);
+        if (hasNextChar() || lastOperator != null) {
+            throw error("Unexpected close bracket");
+        }
+        return tripleExpression;
     }
 
     private CommonExpression parseLevel(int level) {
@@ -39,11 +43,16 @@ public class ExpressionParser extends BaseParser implements Parser {
             return getPrimeExpression();
         }
         CommonExpression expression = parseLevel(level - 1);
-        while (priorities.get(lastOperator) == level) {
+        while (lastOperator != null && priorities.get(lastOperator) == level) {
             expression = makeExpression(lastOperator, expression, parseLevel(level - 1));
         }
         if (level == topLevel) {
-            testOperator();
+            if (lastOperator == null) {
+                throw error("Expected close bracket");
+            }
+            if (!testOperator() && lastOperator.equals(")")) {
+                lastOperator = null;
+            }
         }
         return expression;
     }
@@ -55,6 +64,8 @@ public class ExpressionParser extends BaseParser implements Parser {
             } else {
                 return Negative.getNegativeExpression(parseLevel(0));
             }
+        } else if (testOperator()) {
+            throw error("Unexpected operator");
         } else if (test('(')) {
             return parseLevel(topLevel);
         } else if (between('0', '9')) {
@@ -76,15 +87,14 @@ public class ExpressionParser extends BaseParser implements Parser {
 
     private CommonExpression getConstExpression(boolean isNegative) {
         StringBuilder stringBuilder = new StringBuilder(isNegative ? "-" : "");
-        while (between('0', '9')) {
+        while (!testOperator()) {
             stringBuilder.append(ch);
             nextChar();
         }
-        testOperator();
         try {
             return new Const(Integer.parseInt(stringBuilder.toString()));
         } catch (NumberFormatException e) {
-            throw error("Illegal variable :" + stringBuilder.toString());
+            throw error("Illegal number:" + stringBuilder.toString());
         }
     }
 

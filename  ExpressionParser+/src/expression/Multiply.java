@@ -12,7 +12,7 @@ public class Multiply extends AbstractBinaryOperator {
 
     @Override
     protected int operate(int a, int b) {
-        return a * b;
+        return Math.multiplyExact(a, b);
     }
 
     @Override

@@ -17,6 +17,9 @@ public class Divide extends AbstractBinaryOperator {
 
     @Override
     protected int operate(int a, int b) {
+        if (a == Integer.MIN_VALUE && b == -1) {
+            throw new ArithmeticException("integer overflow");
+        }
         return a / b;
     }
 

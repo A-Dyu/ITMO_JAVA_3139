@@ -1,23 +1,23 @@
 package expression;
 
-public class Add extends AbstractBinaryOperator {
-    public Add(CommonExpression a, CommonExpression b) {
+public class Subtract extends AbstractBinaryOperator {
+    public Subtract(CommonExpression a, CommonExpression b) {
         super(a, b);
     }
 
     @Override
     protected String getOperator() {
-        return " + ";
+        return " - ";
     }
 
     @Override
     protected int operate(int a, int b) {
-        return a + b;
+        return Math.subtractExact(a, b);
     }
 
     @Override
     protected boolean isOrdered() {
-        return false;
+        return true;
     }
 
     @Override

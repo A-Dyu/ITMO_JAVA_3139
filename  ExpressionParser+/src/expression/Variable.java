@@ -47,6 +47,6 @@ public class Variable implements CommonExpression {
         if (var.equals("z")) {
             return z;
         }
-        throw new IllegalArgumentException("Unexpected variable " + var);
+        throw new ExpressionException("Unexpected variable " + var);
     }
 }

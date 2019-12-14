@@ -19,7 +19,7 @@ public class StringSource implements Source {
     }
 
     @Override
-    public RuntimeException error(final String message) {
-        return new RuntimeException(pos + ": " + message);
+    public ParserException error(final String message) {
+        return new ParserException("Exception at pos " + (pos - 1) +  ": " + message);
     }
 }

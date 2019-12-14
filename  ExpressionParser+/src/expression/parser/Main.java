@@ -1,7 +1,8 @@
 package expression.parser;
 
-import expression.ExpressionException;
+import expression.exceptions.ExpressionException;
 import expression.TripleExpression;
+import expression.exceptions.ParserException;
 
 import java.util.Scanner;
 

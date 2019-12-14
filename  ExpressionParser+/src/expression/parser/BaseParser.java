@@ -1,5 +1,7 @@
 package expression.parser;
 
+import expression.exceptions.ParserException;
+
 public class BaseParser {
     private Source source;
     protected char ch;

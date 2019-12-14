@@ -1,5 +1,7 @@
 package expression;
 
+import expression.exceptions.ExpressionException;
+
 import java.util.Objects;
 
 abstract class AbstractBinaryOperator implements CommonExpression {

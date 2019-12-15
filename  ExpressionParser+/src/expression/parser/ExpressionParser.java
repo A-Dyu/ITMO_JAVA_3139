@@ -64,10 +64,10 @@ public class ExpressionParser extends BaseParser implements Parser {
             } else {
                 return new UnaryMinus(parseLevel(0));
             }
-        } else if (testOperator()) {
-            throw error("Unexpected operator");
         } else if (test('(')) {
             return parseLevel(topLevel);
+        } else if (testOperator()) {
+            throw error("Unexpected operator");
         } else if (between('0', '9')) {
             return getConstExpression(false);
         } else {
@@ -88,6 +88,9 @@ public class ExpressionParser extends BaseParser implements Parser {
     private CommonExpression getConstExpression(boolean isNegative) {
         StringBuilder stringBuilder = new StringBuilder(isNegative ? "-" : "");
         while (!testOperator()) {
+            if (!Character.isLetter(ch) || between('0', '9')) {
+                throw error("Unsupported variable name");
+            }
             stringBuilder.append(ch);
             nextChar();
         }

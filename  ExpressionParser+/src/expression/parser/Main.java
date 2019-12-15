@@ -33,7 +33,7 @@ public class Main {
         try {
             System.out.println(expression.evaluate(x, y, z));
         } catch (ExpressionException e) {
-            System.out.println((e.getCause() == null ? e : e.getCause()).getMessage());
+            System.out.println(e.getCause().getMessage());
         }
     }
 }

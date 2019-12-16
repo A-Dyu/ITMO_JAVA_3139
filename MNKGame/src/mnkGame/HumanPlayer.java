@@ -22,13 +22,12 @@ public class HumanPlayer implements Player {
 
 
     private int nextInt() {
-        while (true) {
             if (in.hasNextInt()) {
                 return in.nextInt();
             } else {
-                out.println("Invalid input, try again!");
+                in.nextLine();
+                return 0;
             }
-        }
     }
     @Override
     public Move move(final Position position, final char cell) {
@@ -37,7 +36,13 @@ public class HumanPlayer implements Player {
             out.println(position);
             out.println(cell + "'s move");
             out.println("Enter row and column");
-            Move move = new Move(nextInt(), nextInt(), cell);
+            int row = nextInt(), col = nextInt();
+            while (row <= 0 || col <= 0) {
+                System.out.println("Invalid move, try again");
+                row = nextInt();
+                col = nextInt();
+            }
+            Move move = new Move(row - 1, col - 1, cell);
             if (position.isValid(move)) {
                 return move;
             }

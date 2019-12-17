@@ -25,7 +25,7 @@ public class CheckedNegate implements CommonExpression {
 
     private static void checkException(int x) {
         if (x == Integer.MIN_VALUE) {
-            throw new NegateOverflowException("Negate overflow: -" + x);
+            throw new NegateOverflowException(x);
         }
     }
 

@@ -28,7 +28,7 @@ public class CheckedDivide extends AbstractBinaryOperator {
 
     private void checkException(int a, int b) {
         if (a == Integer.MIN_VALUE && b == -1) {
-            throw new DivideOverflowException("Divide overflow: " + a + getOperator() + b);
+            throw new DivideOverflowException(a, b);
         }
         if (b == 0) {
             throw new DivideByZeroException("Divide by zero: " + a + getOperator() + b);

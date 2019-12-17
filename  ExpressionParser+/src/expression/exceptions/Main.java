@@ -11,6 +11,7 @@ public class Main {
         }
         return scanner.nextInt();
     }
+
     public static void main(String[] args) {
         ExpressionParser expressionParser = new ExpressionParser();
         TripleExpression expression;

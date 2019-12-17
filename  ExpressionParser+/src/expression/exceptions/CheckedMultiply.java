@@ -29,13 +29,13 @@ public class CheckedMultiply extends AbstractBinaryOperator {
     private void checkException(int a, int b) {
         if (a != 0 && b != 0) {
             if (a == Integer.MIN_VALUE && b == -1 || a == -1 && b == Integer.MIN_VALUE) {
-                throw new MultiplyOverflowException("Multiply overflow: " + a + getOperator() + b);
+                throw new MultiplyOverflowException(a, b);
             } else if (a * b == Integer.MIN_VALUE && Integer.MIN_VALUE / b == a) {
                 return;
             } else if ((a == Integer.MIN_VALUE && b != 1) || (a != 1 && b == Integer.MIN_VALUE)) {
-                throw new MultiplyOverflowException("Multiply overflow: " + a + getOperator() + b);
+                throw new MultiplyOverflowException(a, b);
             } else if (Integer.MAX_VALUE / abs(a) < abs(b)) {
-                throw new MultiplyOverflowException("Multiply overflow: " + a + getOperator() + b);
+                throw new MultiplyOverflowException(a, b);
             }
         }
     }

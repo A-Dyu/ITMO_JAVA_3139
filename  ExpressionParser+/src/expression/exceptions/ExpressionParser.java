@@ -81,6 +81,9 @@ public class ExpressionParser extends BaseParser implements Parser {
             stringBuilder.append(ch);
             nextChar();
         }
+        if (stringBuilder.length() == 0) {
+            throw error("Unsupported variable " + ch);
+        }
         return new Variable(stringBuilder.toString());
     }
 

@@ -1,7 +1,7 @@
 package expression.exceptions;
 
 public class NegateOverflowException extends OperateOverflowException {
-    public NegateOverflowException(String message) {
-        super(message);
+    public NegateOverflowException(int x) {
+        super("Negate", "-" + x);
     }
 }
